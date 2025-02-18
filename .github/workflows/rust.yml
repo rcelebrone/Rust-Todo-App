@@ -11,9 +11,7 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Build
@@ -21,7 +19,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-
+    needs: build  # Define a dependência do job 'build'
     steps:
+    - uses: actions/checkout@v4
     - name: Run tests
       run: cargo test --verbose
