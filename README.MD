@@ -37,4 +37,3 @@ Para executar o projeto, basta clonar o repositório e executar o comando `cargo
 ## Contribuir
 
 Se você quiser contribuir com o projeto, basta criar um fork do repositório e enviar um pull request com as alterações.
-
