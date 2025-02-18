@@ -2,6 +2,7 @@ use uuid::Uuid;
 use std::collections::HashMap;
 use super::todo_model::{Todo, TodoImpl, TodoListFilter, TodoToggleAction};
 
+#[derive(Debug, PartialEq)]
 pub enum TodoRepoError {
     NotFound
 }
@@ -22,9 +23,11 @@ pub trait TodoRepositoryImpl {
     fn update(&mut self, id: &Uuid, text: Option<String>, is_completed: Option<bool>) -> Result<Todo, TodoRepoError>;
     fn delete_completed(&mut self) -> Result<(), TodoRepoError>;
     fn toggle_completed(&mut self, action: &TodoToggleAction) -> Result<(), TodoRepoError>;
+    fn get_num_all(&self) -> u32;
 }
 
 impl TodoRepositoryImpl for TodoRepository {
+    
     fn get(&self, id: &Uuid) -> Result<Todo, TodoRepoError> {
         self.items.get(id).cloned().ok_or(TodoRepoError::NotFound)
     }
@@ -109,5 +112,9 @@ impl TodoRepositoryImpl for TodoRepository {
         }
         
         Ok(())
+    }
+    
+    fn get_num_all(&self) -> u32 {
+        self.num_all
     }
 }
