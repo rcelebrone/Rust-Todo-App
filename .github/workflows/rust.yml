@@ -19,8 +19,15 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: build  # Define a dependência do job 'build'
+    needs: build
     steps:
     - uses: actions/checkout@v4
-    - name: Run tests
-      run: cargo test --verbose
+    - name: Install cargo-tarpaulin
+      run: cargo install cargo-tarpaulin
+    - name: Run tests and generate coverage report
+      run: cargo tarpaulin --verbose --out Html
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: target/tarpaulin-html-report
