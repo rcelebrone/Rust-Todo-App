@@ -2,7 +2,7 @@ use std::time::SystemTime;
 use serde::{Serialize, Deserialize};
 use std::fmt::{Display, Formatter, Result};
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Todo {
     pub is_completed: bool,
     pub created_at: SystemTime,

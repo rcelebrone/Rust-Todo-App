@@ -17,6 +17,7 @@ tracing = "0.1" #tracing para rastreamento
 tracing-subscriber = { version = "0.3", features = ["env-filter"] } #tracing para rastreamento
 askama ={ version = "0.12.0", default-features = false, features = ["with-axum", "mime", "mime_guess"] } #renderizador de templates
 askama_axum = { version = "0.3.0" } #integração entre askanma e axum
+rocket = { version = "0.5.1", features = ["json"]}
 
 [dev-dependencies]
 tower = { version = "0.4", features = ["util"] } #usado para criar servidores
