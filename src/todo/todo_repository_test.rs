@@ -49,4 +49,37 @@ mod todo_repository_test {
         let todo_updated = repo.get(&id);
         assert!(todo_updated.unwrap().is_completed);
     }
+
+    #[test]
+    fn test_get_all() {
+        let mut repo = TodoRepository::default();
+        let todo1 = repo.create("test1").unwrap();
+        let todo2 = repo.create("test2").unwrap();
+        let todo3 = repo.create("test3").unwrap();
+
+        let all_todos = repo.get_all();
+        assert_eq!(all_todos.len(), 3);
+
+        assert!(all_todos.iter().any(|t| t.id == todo1.id));
+        assert!(all_todos.iter().any(|t| t.id == todo2.id));
+        assert!(all_todos.iter().any(|t| t.id == todo3.id));
+    }
+
+    #[test]
+    fn test_get_all_empty() {
+        let repo = TodoRepository::default();
+        let all_todos = repo.get_all();
+        assert!(all_todos.is_empty());
+    }
+
+    #[test]
+    fn test_get_all_with_one() {
+        let mut repo = TodoRepository::default();
+        let todo = repo.create("test").unwrap();
+        let all_todos = repo.get_all();
+
+        assert_eq!(all_todos.len(), 1);
+        assert_eq!(all_todos[0].id, todo.id);
+    }
+
 }

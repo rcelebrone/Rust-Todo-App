@@ -17,6 +17,7 @@ pub struct TodoRepository {
 
 pub trait TodoRepositoryImpl {
     fn get(&self, id: &Uuid) -> Result<Todo, TodoRepoError>;
+    fn get_all(&self) -> Vec<Todo>;
     fn list(&self, filter: &TodoListFilter) -> Vec<Todo>;
     fn create(&mut self, text: &str) -> Result<Todo, TodoRepoError>;
     fn delete(&mut self, id: &Uuid) -> Result<(), TodoRepoError>;
@@ -117,4 +118,11 @@ impl TodoRepositoryImpl for TodoRepository {
     fn get_num_all(&self) -> u32 {
         self.num_all
     }
+    
+    fn get_all(&self) -> Vec<Todo> {
+        let mut todos = self.items.values().cloned().collect::<Vec<Todo>>();
+        todos.sort_by(|a, b| a.created_at.cmp(&b.created_at));
+        todos
+    }
+    
 }

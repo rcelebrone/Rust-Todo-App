@@ -3,7 +3,6 @@
 mod todo;
 mod utils;
 
-use axum::http::response;
 use rocket::response::status::NotFound;
 use rocket::serde::json::Json;
 use rocket::State;
@@ -37,10 +36,16 @@ fn get_by_id(
     }
 }
 
+#[get("/todos")]
+fn get_all(repo: &State<TodoRepository>) -> Json<Vec<Todo>> {
+    let todos = TodoRepositoryImpl::get_all(repo.inner());
+    Json(todos)
+}
+
 #[rocket::main]
 async fn main() {
     if let Err(e) = rocket::build()
-      .mount("/", routes![index, get_by_id])
+      .mount("/", routes![index, get_by_id, get_all])
       .manage(TodoRepository::default())
       .launch()
       .await
