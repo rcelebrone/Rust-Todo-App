@@ -7,7 +7,7 @@ pub enum TodoRepoError {
     NotFound
 }
 
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub struct TodoRepository {
     num_completed: u32,
     num_active: u32,

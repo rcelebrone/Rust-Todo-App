@@ -1,4 +1,4 @@
-#![feature(proc_macro_hygiene, decl_macro)]
+#![feature(decl_macro)]
 
 mod todo;
 mod utils;
@@ -10,16 +10,17 @@ use todo::{
     todo_model::Todo,
     todo_repository::{TodoRepository, TodoRepositoryImpl},
 };
-use utils::uuid_params::UuidParam;
+use utils::{uuid_params::UuidParam, request_model::CreateTodoRequest,};
 
 #[macro_use]
 extern crate rocket;
 
 #[get("/")]
-fn index() -> String {
-    let mut repo = TodoRepository::default();
-    let todo = TodoRepositoryImpl::create(&mut repo, "New Todo");
-    match todo {
+fn index(
+    repo: &State<TodoRepository>,
+) -> String {
+    let mut repo_mut = repo.inner().clone();
+    match repo_mut.create("new todo") {
         Ok(todo) => format!("Created todo: {}", todo.id),
         Err(_) => String::from("Error creating todo"),
     }
@@ -36,20 +37,22 @@ fn get_by_id(
     }
 }
 
-#[get("/todos")]
-fn get_all(repo: &State<TodoRepository>) -> Json<Vec<Todo>> {
-    let todos = TodoRepositoryImpl::get_all(repo.inner());
-    Json(todos)
+#[post("/", format = "json", data = "<create_todo_request>")]
+fn create(
+    create_todo_request: Json<CreateTodoRequest>,
+    repo: &State<TodoRepository>,
+) -> String {
+    let mut repo_mut = repo.inner().clone();
+    match repo_mut.create(&create_todo_request.text) {
+        Ok(todo) => format!("Created todo: {}", todo.id),
+        Err(_) => String::from("Error creating todo"),
+    }
 }
 
-#[rocket::main]
-async fn main() {
-    if let Err(e) = rocket::build()
-      .mount("/", routes![index, get_by_id, get_all])
-      .manage(TodoRepository::default())
-      .launch()
-      .await
-    {
-        println!("Rocket failed to launch: {}", e);
-    }
+
+#[launch]
+async fn rocket() -> _ {
+    rocket::build()
+      .mount("/", routes![index, get_by_id, create])
+      .manage(TodoRepository::default()) // Provide the repository as a managed state
 }

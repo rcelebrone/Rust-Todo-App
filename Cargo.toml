@@ -8,18 +8,18 @@ path = "src/main.rs"
 name = "todo_app"
 
 [dependencies]
-axum = "0.6.18" #framework para servidor web (http)
-tokio ={ version = "1.29.1", features = ["full"] } #lib para procesos concurrencia (async)
-tower-http ={ version = "0.4.0", features = ["fs", "trace"] } # usado para lidar com funções http, rastreamento e sistema de arquivos
-serde = { version = "1.0", features = ["derive"] } #serializar e deserializar dados (JSON)
-uuid ={ version = "1.0", features = ["serde", "v4"] } #gerador de identificadores unicos
-tracing = "0.1" #tracing para rastreamento
-tracing-subscriber = { version = "0.3", features = ["env-filter"] } #tracing para rastreamento
-askama ={ version = "0.12.0", default-features = false, features = ["with-axum", "mime", "mime_guess"] } #renderizador de templates
-askama_axum = { version = "0.3.0" } #integração entre askanma e axum
-rocket = { version = "0.5.1", features = ["json"]}
+# axum = "0.8.1" #framework para servidor web (http)
+tokio ={ version = "1", features = ["full"] } #lib para procesos concurrencia (async)
+# tower-http ={ version = "0.4.0", features = ["fs", "trace"] } # usado para lidar com funções http, rastreamento e sistema de arquivos
+serde = { version = "1", features = ["derive"] } #serializar e deserializar dados (JSON)
+uuid ={ version = "1", features = ["serde", "v4"] } #gerador de identificadores unicos
+# tracing = "0.1" #tracing para rastreamento
+# tracing-subscriber = { version = "0.3", features = ["env-filter"] } #tracing para rastreamento
+# askama ={ version = "0.12.0", default-features = false, features = ["with-axum", "mime", "mime_guess"] } #renderizador de templates
+# askama_axum = { version = "0.3.0" } #integração entre askanma e axum
+rocket = { version = "0.5.0-rc.3", features = ["json"]}
 
 [dev-dependencies]
-tower = { version = "0.4", features = ["util"] } #usado para criar servidores
-hyper ={ version = "0.14", features = ["full"] } #framework para servidor http
-scraper = "0.17.1"
+tower = { version = "0.5.2", features = ["util"] } #usado para criar servidores
+hyper ={ version = "1.6.0", features = ["full"] } #framework para servidor http
+scraper = "0.23.1"

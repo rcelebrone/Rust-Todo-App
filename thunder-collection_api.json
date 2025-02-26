@@ -1,0 +1,40 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "api",
+    "collectionId": "746e39aa-c40f-4dff-a9d2-54355065017b",
+    "dateExported": "2025-02-26T00:02:45.152Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "0257966c-3802-497a-8598-a8a9a646d0da",
+            "colId": "746e39aa-c40f-4dff-a9d2-54355065017b",
+            "containerId": "",
+            "name": "create",
+            "url": "http://127.0.0.1:8000/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2025-02-25T23:59:10.483Z",
+            "modified": "2025-02-25T23:59:10.483Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"text\": \"meu todo lindão\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a7d3ff2c-f317-4c3e-9b1e-0d0ee19058d3",
+            "colId": "746e39aa-c40f-4dff-a9d2-54355065017b",
+            "containerId": "",
+            "name": "get by id",
+            "url": "http://127.0.0.1:8000/dad5853e-90c6-4807-8e26-35f99f7f7250",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2025-02-25T23:59:16.866Z",
+            "modified": "2025-02-26T00:00:51.763Z",
+            "headers": []
+        }
+    ],
+    "ref": "lNQFEIi8JC8GMogOjfNZsEsgPWb0mqaStIBCcDWqLL9luBOuVEQuQ7PDCsOlyg7uKVtM_OnVGdRCmkhb18gwFQ"
+}
