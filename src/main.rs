@@ -1,5 +1,3 @@
-#![feature(decl_macro)]
-
 mod todo;
 mod utils;
 
@@ -48,11 +46,15 @@ fn create(
         Err(_) => String::from("Error creating todo"),
     }
 }
-
+#[get("/todos")]
+fn get_all(repo: &State<TodoRepository>) -> Json<Vec<Todo>> {
+    let todos = TodoRepositoryImpl::get_all(repo.inner());
+    Json(todos)
+}
 
 #[launch]
-async fn rocket() -> _ {
+fn rocket() -> _ {
     rocket::build()
-      .mount("/", routes![index, get_by_id, create])
+      .mount("/", routes![index, get_by_id, create, get_all])
       .manage(TodoRepository::default()) // Provide the repository as a managed state
 }
